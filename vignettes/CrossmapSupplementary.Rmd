@@ -1,0 +1,357 @@
+---
+title: "Diffusion enables integration of heterogeneous data and user-driven learning in a desktop knowledge-base (Supplementary Data)"
+output:
+  pdf_document:
+    keep_tex: true
+header-includes:
+  \usepackage{caption}
+  \usepackage{float}
+  \usepackage{graphicx}
+  \floatplacement{figure}{H}
+  \captionsetup[figure]{labelfont={bf},name={Figure}, labelsep=period}
+---
+
+
+```{r, supplementary, echo=FALSE}
+source("config.R")
+set.seed(1292301)
+source("obo.R")
+# gene-set analyses
+go.benchmarks.size <- 1000
+source("benchmarking.R")
+source("copynumber.R")
+# hp-mp translations
+source("hpmp.R")
+hpmp.diffusion.text <- c("incisors", "prominent", "axillary", "antitragus")
+hpmp.diffusion.ids <- c("MP:0001008", "HP:0011250", "HP:0006957",
+                        "HP:0006844", "HP:0002330")
+source("hpmp.diffusion.R")
+```
+
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{0}
+
+
+```{r boxtrends.genesets, echo=FALSE, eval=TRUE}
+# helper to draw a boxtrends diagram based on benchmark performance
+plot.boxtrends.genesets <- function(methods, tau, series, show.xaxis=FALSE,
+                                    ylab="(total) JI",
+                                    performance=benchmarks.performance, ...) {
+  .tau <- tau
+  perfdata <- merge(performance[tau==.tau], methods,
+                   by=intersect(colnames(performance), colnames(methods)))
+  perfdata <- merge(perfdata, benchmarks.summary,
+                   by=intersect(colnames(perfdata), colnames(benchmarks.summary)))
+  plot.boxtrends(perfdata, 
+                 xy=c("method", "tauprecision"),
+                 x.values=methods$method,
+                 series.column=names(series)[1], series.values=series[[1]],
+       	         ylab=ylab, show.xaxis=show.xaxis, ...)
+}
+```
+
+
+```{r fig.benchmarks, echo=FALSE, eval=TRUE, fig.width=6.0, fig.height=3.6, fig.cap="\\textbf{Benchmarking search and decomposition on synthetic gene sets.} \\textbf{(A)} Schematic of the procedure for the generation of synthetic gene sets. Starting from a pool of genes (dots) and a set of curated gene sets (color boundaries), the procedure entails three distinct strategies. One strategy picks genes from between one and four curated gene sets (top). Another strategy modulates the proportion of genes that are transferred from the curated sets into the synthetic sets (middle). The last strategy supplements each synthetic set with genes picked from the pool at random, modulating the signal-to-noise signal (bottom). The schematic is an exact repeat of a figure panel in the main manuscript. \\textbf{(B)} Summary of performance of Fisher, search, and decomposition algorithms on an ensemble of 64,000 synthetic gene sets generated according to the schematic in (A). The evaluation metric is the total Jaccard Index (JI): for a benchmark set made up of $n$ components, this metric takes the $n$ top-ranked hits from each method, evaluates the JI between the hits and the true curated sets, and reports the sum of the JI values. Effectively, the total JI counts the number of expected sets found. Box plot bounds, center line, and whiskers represent 25\\%-75\\%, 50\\%, and 5\\%-95\\% quantiles. Boxes contain results from all benchmark sets generated according to a mixture of strategies. Rows stratify the data according to number of components, coverage, and signal. Columns show results computed using crossmap instances using uniform feature weighting and feature weighting based on information content (IC). In the latter, genes that appear in many gene sets are down-weighted as non-informative. The Fisher method does not utilize weighting, so Fisher results are exactly the same in the two columns. \\textbf{(C)} Effect of diffusion on search and decomposition performance. In these calculations, diffusion appears to lower performance slightly."}
+layout(matrix(c(1, 2, 3, 3, 4,
+                5, 6, 7, 8, 9,
+                5, 6,10,11,12,
+                5, 6,13,14,15,
+                rep(16, 5),
+                17,17,18,18,19,
+                17,17,20,21,22), ncol=5, nrow=7, byrow=T),
+       widths=c(2.2, 0.3, 1.5, 1.5, 0.5),
+       heights=c(0.2, 0.75, 0.75, 0.75, 0.2, 0.2, 0.75))
+#
+# row with titles
+plot.separateTitle("Construction of benchmark gene-sets",
+                   Rcssclass=c("boxtrends", "title"))
+par(mai=rep(0.01, 4)); plot.new()
+plot.separateTitle("Performance on benchmark gene-sets",
+                   Rcssclass=c("boxtrends", "title"))
+par(mai=rep(0.01, 4)); plot.new()
+#
+# schematic with a genepool and benchmark types
+schematic.genepool.benchmarks(xlim=c(-0.1, 2.6))
+multipanelLabel(panel.labels[1])
+par(mai=rep(0.01, 4)); plot.new()
+#
+# helper to show pair of panels with uniform/ic
+plot.boxtrends.configpair <- function(methods, panel.label, ylim=c(0, 5), ...) {
+  methods1 <- copy(methods)
+  methods1$config.label <- gsub("ic_", "uniform_", methods$config.label)
+  plot.boxtrends.genesets(methods1, main="unform weights",
+                          ylim=ylim, ...)
+  multipanelLabel(panel.label)
+  methods2 <- copy(methods)
+  methods2$config.label <- gsub("uniform_", "ic_", methods$config.label)
+  plot.boxtrends.genesets(methods2, main="IC weights", Rcssclass="noylab",
+                          ylim=ylim, ylab="", ...)
+}
+#
+# row with effect of number of components
+methods.covsig <- data.table(method=c("fisher", "search", "decomp"),
+                             config.label=c("p0.05", rep("uniform_n5_diff0", 2)),
+                             coverage=0.5, signal=0.5)
+methods.covsig.all <- copy(methods.covsig)
+methods.covsig.all$coverage <- methods.covsig.all$signal <- NULL
+plot.boxtrends.configpair(methods.covsig.all, panel.labels[2], tau=0,
+                          series=list(components=c(1,2,3,4)))
+plot.boxtrends.legend(c(-0.6, 1.1), "Components", 1:4)
+#
+#
+# row with effect of coverage
+methods.compsig <- data.table(method=c("fisher", "search", "decomp"),
+                              config.label=c("p0.05", rep("uniform_n5_diff0", 2)),
+			                  components=3, signal=0.5)
+methods.compsig.all <- copy(methods.compsig)
+methods.compsig.all$components <- methods.compsig.all$signal <- NULL
+plot.boxtrends.configpair(methods.compsig.all, "", tau=0,
+                    series=list(coverage=seq(0.25, 1, by=0.25)))
+plot.boxtrends.legend(c(-0.6, 1.1), "Coverage", seq(0.25, 1, by=0.25))
+#
+#
+# row with effect of signal percentage
+methods.covcomp <- data.table(method=c("fisher", "search", "decomp"),
+                              config.label=c("p0.05", rep("uniform_n5_diff0", 2)),
+                              coverage=0.5, components=3)
+methods.covcomp.all <- copy(methods.covcomp)
+methods.covcomp.all$coverage <- methods.covcomp.all$components <- NULL
+plot.boxtrends.configpair(methods.covcomp.all, "", tau=0,
+                          series=list(signal=seq(0.25, 1, by=0.25)),
+                          show.xaxis=TRUE)
+plot.boxtrends.legend(c(-0.6, 1.1), "Signal", seq(0.25, 1, by=0.25))
+#
+#
+# panels for spacing
+par(mai=rep(0.01, 4)); plot.new()
+par(mai=rep(0.01, 4)); plot.new()
+#
+#
+# row with titles
+plot.separateTitle("Effect of gene-based diffusion", position=c(0.5, 0.5),
+                   Rcssclass=c("boxtrends", "title"))
+par(mai=rep(0.01, 4)); plot.new()
+#
+# temporary object with fisher p0.05 labeled as diffusion 0
+temp.uniform <- copy(benchmarks.performance)
+temp.uniform[config.label=="p0.05", "config.label"] <- "uniform_n5_diff0"
+temp.ic <- copy(benchmarks.performance)
+temp.ic[config.label=="p0.05", "config.label"] <- "ic_n5_diff0"
+methods.diff <- data.table(method=c("fisher", "search", "decomp"))
+diff.values <- c(0, 0.05, 0.1, 0.2)
+plot.boxtrends.genesets(methods.diff, tau=0,
+  series=list(config.label=paste0("uniform_n5_diff", diff.values)),
+  main="uniform weights",
+  show.xaxis=TRUE,
+  performance=temp.uniform)
+multipanelLabel(panel.labels[3])
+plot.boxtrends.genesets(methods.diff, tau=0,
+  series=list(config.label=paste0("ic_n5_diff", diff.values)),
+  main="IC weights", ylab="",
+  show.xaxis=TRUE,
+  performance=temp.ic,
+  Rcssclass="noylab")
+plot.boxtrends.legend(c(-0.6, 1.1), "Diffusion", diff.values)
+rm(temp.uniform, temp.ic)
+```
+
+
+```{r plot.helpers, eval=TRUE, echo=FALSE}
+# draw an arrow to the first bar in a histogram
+top.arrow <- function(histcounts, i=1, x=3.5) {
+  if (length(i)>1) {
+    for (.i in i) {
+      top.arrow(histcounts, .i, x=x)
+    }
+  } else {
+    top.count <- histcounts[i]
+    top.perc <- round(100 * top.count / sum(histcounts))
+    if (i==1) {
+      text(x, top.count*0.8, paste0(top.perc,"%"), Rcssclass=c("hist", "label"))
+      arrows(x-0.15, top.count*0.8, 0.65, top.count*0.8, Rcssclass="hist")
+    } else if (i==2) {
+      text(x, top.count*1.4, paste0(top.perc, "%"), Rcssclass=c("hist", "label"))
+      arrows(x-0.15, top.count*1.4, 1.65, top.count*1.01, Rcssclass="hist")
+    } else if (i==3) {
+      text(x, top.count*1.4, paste0(top.perc, "%"), Rcssclass=c("hist", "label"))
+      arrows(x-0.15, top.count*1.4, 2.65, top.count*1.01, Rcssclass="hist")
+    }
+  }
+}
+hist.mean <- function(hist.data, y=max(hist.data$counts), adj=c(0, 0)) {
+  .mean <- mean(rep(hist.data$mid, hist.data$counts))
+  lines(rep(.mean-0.5, 2), c(0, y), Rcssclass=c("hist", "mean"))
+  text(.mean-0.5, y, paste0("mean: ", signif(.mean, 3)), adj=adj,
+       Rcssclass=c("hist", "mean"))
+}
+```
+
+
+```{r fig.lexical, eval=TRUE, echo=FALSE, fig.width=6.0, fig.height=3.0, fig.cap="\\textbf{Stratification of HP-MP phenotype translation.} \\textbf{(A)} Examples of human phenotype (HP) terms (column ‘Query`) and expected mammalian phenotype (MP) translations (column ‘Expected’) for which the phenotype titles are exact lexical matches. \\textbf{(B)} Precision and path-length metrics for search-based phenotype translation on the subset of HP terms for which phenotype titles have exact lexical matches to MP terms. Both metrics are evaluated using the top search result and using the best choice out of the top 5 search results. Precision is not perfect (below unity) because the automated translation is based on the full phenotype description, including synonyms and comments, which are not lexically similar to MP terms. Error bars represent 5%-95% quantiles. \\textbf{(C)} Distribution of path lengths for translations of HP terms that have exact lexical matches to MP terms. The distribution is dominated by exactly-correct translations with path-length of zero. \\textbf{(D-F)} Analogous to (A-C), but using the subset of HP terms that do not have exact lexical matches to MP terms based on phenotype title. Panel (D) illustrates that ‘expected’ MP translations do not always capture the full meaning of the human phenotypes. Panel (F) shows that search nonetheless produces translations that match the expected results for almost half the queries. The long tail contributes to lower precision and high path-length scores for this group of HP terms."}
+layout(matrix(c(1,1,1,1,
+                2,3,4,5,
+                rep(6, 4),
+                rep(7, 4),
+                8,9,10,11), ncol=4, nrow=5, byrow=T),
+       widths=c(2.4, 0.8, 0.8, 2.0), height=c(0.3, 1.2, 0.2, 0.3, 1.2))
+#
+# partition results into easy and not-easy
+noteasy.data <- hpmp.viz[viz=="plain" & name.match.ji <= 0.6]
+easy.data <- hpmp.viz[viz=="plain" & name.match.ji > 0.6]
+#
+# title panel for easy, i.e. lexical matches
+plot.separateTitle("HP-MP translations: terms with lexical matches",
+                   Rcssclass=c("boxtrends", "title"))
+#
+# panel with examples of translation
+easy.examples <- easy.data[nchar(name) < 20 & nchar(expected_name) < 20]$id[1:3]
+easy.df <- hpmp.viz[id %in% easy.examples & viz=="plain"]
+easy.df$target_name <- gsub("abnormal", "abn.", easy.df$target_name)
+easy.df$target_name <- gsub("system", "sys.", easy.df$target_name)
+plot.table.expout(easy.df, widths=c(0.8, 0.8, 0.8),
+                  show.columns=c("query", "expected"),
+                  Rcssclass=c("expout", "easy"))
+multipanelLabel(panel.labels[1])
+#
+# results for easy results (names match well)
+plot.perfbars2(easy.data, value.cols=c("precision", "precision_bestN"),
+               labels=c("best of 1", "best of 5"),
+               ylim=c(0, 1), axis.y=-0.075,
+               main="Precision", Rcssclass=c("plain", "left"))
+multipanelLabel(panel.labels[2])
+plot.perfbars2(easy.data, value.cols=c("pathlen", "pathlen_bestN"),
+               labels=c("best of 1", "best of 5"),
+               ylim=c(0, 5), axis.y=-0.075,
+               main="Path length", Rcssclass=c("plain", "right"))
+best.hist <- plot.hist(easy.data$pathlen_bestN,
+                       xlab="Path length, best of 5", ylab="N. queries",
+		               xlim=c(-0.2, 10),
+                       main="")
+top.arrow(best.hist$counts, i=1:2)
+multipanelLabel(panel.labels[3])
+#
+# space row
+par(mai=rep(0.01, 4)); plot.new()
+#
+# title panel
+plot.separateTitle("HP-MP translations: terms without lexical matches",
+                   Rcssclass=c("boxtrends", "title"))
+#
+# result for not easy results (names do not match)
+noteasy.examples <- rev(noteasy.data[name.match.ji < 0.35 &
+		   		         nchar(name) < 20 &
+                         nchar(expected_name) < 20]$id)[1:3]
+noteasy.df <- hpmp.viz[id %in% noteasy.examples & viz=="plain"]
+noteasy.df$target_name <- gsub("abnormal", "abn.", noteasy.df$target_name)
+noteasy.df$target_name <- gsub("system", "sys.", noteasy.df$target_name)
+plot.table.expout(noteasy.df, widths=c(0.8, 0.8, 0.8),
+                  show.columns=c("query", "expected"),
+                  Rcssclass=c("expout", "easy"))
+multipanelLabel(panel.labels[4])
+plot.perfbars2(noteasy.data, value.cols=c("precision", "precision_bestN"),
+               labels=c("best of 1", "best of 5"),
+               ylim=c(0, 1), axis.y=-0.075,
+               main="Precision", Rcssclass=c("plain", "left"))
+multipanelLabel(panel.labels[5])
+plot.perfbars2(noteasy.data, value.cols=c("pathlen", "pathlen_bestN"),
+               labels=c("best of 1", "best of 5"),
+               ylim=c(0, 5), axis.y=-0.075,
+               main="Path length", Rcssclass=c("plain", "right"))
+best.hist <- plot.hist(noteasy.data$pathlen_bestN,
+                      xlab="Path length, best of 5", ylab="N. queries",
+		              xlim=c(-0.2, 10),
+                      main="")
+top.arrow(best.hist$counts, i=1:2)
+multipanelLabel(panel.labels[6])
+```
+
+
+
+```{r fig.calibration, eval=TRUE, echo=FALSE, fig.width=6.4, fig.height=4.2, fig.cap="\\textbf{Diffusion processes for human-to-mouse phenotype translation.} \\textbf{(A)} Top features imputed by a diffusion process starting from a query with text ‘incisors’. Diffusion transfers weight from k-mers present in the query to other k-mers associated with teeth. K-mers within the query retain large weights, but are omited from the figure to emphasize the ranking of the newly-imputed features. \\textbf{(B)} Calibration of the strength of diffusion for HP-MP translation. Queries from the HP ontology were diffused with different strengths, and then mapped to MP terms using the search algorithm. Precision was measured against mappings produced by owlsim. The shaded area of the graph is reproduced with a zoomed scale on top. \\textbf{(C)} Analogous to (B), but measuring the effect of diffusion in terms of path length. \\textbf{(D)} Top features imputed for an entire HP query composed of a phenotype title (‘Absent patellar reflexes’), description, synonyms, and other text data. Bars show the weights assigned by a diffusion process driven by the MP ontology, and by a process also including manual annotations. \\textbf{(E)} Calibration of strengths of diffusion in terms of precision, using diffusion driven by the MP ontology and manual annotations. \\textbf{(F)} Analogous to (E), but measuring the impact of diffusion in terms of path length."}
+layout(matrix(c(1,2,4,
+                1,3,5,
+                6,7,8), ncol=3, nrow=3, byrow=T),
+		widths=c(1.6, 2.4, 2.4), heights=c(0.6, 1.5, 2.1))
+#
+# a single diffusion profile
+diffused.best.configs <- c(hpmp.viz[viz=="diffused"]$config.label[1],
+                           hpmp.viz[viz=="best"]$config.label[1])
+plot.diffusion.barplot(
+  hpmp.diffusion.examples[config.label %in% diffused.best.configs[1] &
+                            input=="incisors"],
+  n=18, xlim=c(0, 0.08))
+multipanelLabel(panel.labels[1])
+#
+# Calibration without any manual (precision)
+calibration.targets <- hpmp.evaluations.summary[diff_manual==0 & eval.label=="owlsim"]
+calibration.precision.zoom <- c(0.5, 0.542)
+plot.calibration.lines(calibration.targets, x="diff_targets",                       
+                       y=c(precision_bestN="best of 5"),
+		       show.values=c("first", "max"),
+		       ylim=calibration.precision.zoom,
+		       bg.stripe=calibration.precision.zoom,
+		       show.axes="y", ylab="",
+		       Rcssclass=c("zoom", "precision"))
+multipanelLabel(panel.labels[2])
+plot.calibration.lines(calibration.targets, x="diff_targets",                       
+                       y=c(precision="best of 1", precision_bestN="best of 5"),
+		       show.values=c("first", "max")		   ,
+		       ylim=c(0, 0.58),
+       		       bg.stripe=calibration.precision.zoom+c(-0.03, 0.03),
+		       ylab="Precision", xlab="Diffusion strength (MP)",
+		       Rcssclass="precision")
+#
+# Calibration without any manual (pathlen)
+calibration.pathlen.zoom <- c(1.34, 1.52)
+plot.calibration.lines(calibration.targets,x="diff_targets",
+                       y=c(pathlen_bestN="best of 5"),
+       		           show.values=c("first", "min"),
+       		           ylim=calibration.pathlen.zoom,
+       		           bg.stripe=calibration.pathlen.zoom,
+		               show.axes="y", ylab="",
+                       Rcssclass=c("zoom", "pathlen"))
+multipanelLabel(panel.labels[3])
+plot.calibration.lines(calibration.targets,x="diff_targets",
+                       y=c(pathlen="best of 1", pathlen_bestN="best of 5"),
+       		           show.values=c("first", "min"),
+       		           bg.stripe=calibration.pathlen.zoom+c(-0.1, 0.1),
+       		           ylim=c(0, 2.85),
+		               ylab="mean path length", xlab="Diffusion strength (MP)",
+                       Rcssclass="pathlen")
+#
+# comparison of two diffusion profiles
+example.hp <- get.diffusion.comparison(hpmp.diffusion.examples, diffused.best.configs,
+                                      pair.label=c("auto", "manual"))
+example.hp <- example.hp[input=="HP:0006844"]
+plot.diffusion.barplot(example.hp,
+                       value.cols=c("value_auto", "value_manual"),
+                       n=18, xlim=c(0, 0.35), 
+                       legend.pos=c(0.14, -13.5),
+		               legend.main="Data diffusion",
+		               legend.labels=c("MP", "MP, manual"))
+multipanelLabel(panel.labels[4])
+#
+# heatmaps with calibration values
+plot.calibration.heat(hpmp.evaluations.summary[eval.label=="owlsim"],
+                      xy=c("diff_targets", "diff_manual"),
+                      z=c(precision_bestN="top 5"),
+		              color.fun=plasma,
+		              show.values="max",
+		              xlab="Diffusion strength (MP)",
+		              ylab="Diffusion strength (manual)",
+		              main="Precision (best of 5)",
+		              Rcssclass="precision")
+multipanelLabel(panel.labels[5])
+plot.calibration.heat(hpmp.evaluations.summary[eval.label=="owlsim"],
+                      xy=c("diff_targets", "diff_manual"),                      
+                      z=c(pathlen_bestN="top 5"),
+		              color.fun=viridis,
+		              show.values="min",
+		              xlab="Diffusion strength (MP)",
+		              ylab="Diffusion strength (manual)",
+                      main="Path length (best of 5)",
+		              Rcssclass="pathlen")
+multipanelLabel(panel.labels[6])
+```
+

@@ -1,0 +1,39 @@
+# ignoring temporary and cache files
+*~
+*log
+*out
+*temp*
+*history
+.idea
+
+# ignore documentation files for R package
+*Rd
+
+# ignore all data items
+data
+*yaml
+*gz
+*tsv
+*#
+*csv
+*RData
+
+
+# ignoring outputs from vignettes
+*html
+*tex
+*png
+*pdf
+*tiff
+*svg
+cache*
+vignettes/cache*
+vignettes/tables*
+
+# ignoring links to external
+*py
+
+# local scripts
+crossmap
+crossprep
+make-archive

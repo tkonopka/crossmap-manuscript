@@ -1,0 +1,352 @@
+/** plot styles for Crossmap diagrams (algorithms, cartoons, etc.) **/
+
+
+
+/** schematic diagrams **/
+
+par.schematic {
+  mai: 0.15 0.15 0.15 0.15;
+}
+par.schematic.legend {
+  mai: 0.15 0.05 0.15 0.15;
+}
+Arrow.schematic.axis {
+  col: #aaaaaa;
+  arr.length: 0.22;
+}
+Arrow.schematic.target {
+  arr.length: 0.27;
+  arr.adj: 1;
+  lwd: 1.5;
+}
+Arrow.schematic.component {
+  arr.length: 0.27;
+  arr.adj: 1;
+  lwd: 1.5;
+  col: #999999;
+}
+Arrow.schematic.residual {
+  arr.length: 0.27;
+  arr.adj: 1;
+  lwd: 3;
+  col: #999999;
+}
+points.schematic {
+  pch: 19;
+  lwd: 0;
+  col: #000000;
+  xpd: 1;
+}
+points.schematic.query {
+  cex: 0.85;
+  pch: 19;
+  col: #000000;
+}
+points.schematic.target {
+  pch: 21;
+  bg: #ffffff;
+  col: #000000;
+  cex: 0.85;
+  lwd: 1.8;
+}
+points.schematic.target.highlight {
+  bg: #4499ee;
+}
+points.schematic.doc {
+  col: #333333;
+  lwd: 0.5;
+  cex: 0.6;
+  pch: 21;
+  bg: #bbbbbb;
+}
+lines.schematic.q_t {
+  col: #000000;
+  lty: 2;
+  lwd: 1.5;
+}
+lines.schematic.q_d, lines.schematic.d_t {
+  col: #777777;
+  lty: 2;
+  lwd: 1.5;
+}
+lines.schematic.d_t {
+  lty: 3;
+  lwd: 1.5;
+}
+
+/** drawing text in various quadrants **/
+text.schematic {
+  cex: 1;
+  font: 2;
+  xpd: 1;
+}
+text.schematic.legend {
+  adj: 0 0.5;
+  font: 1;
+}
+text.schematic.q2 {
+  adj: -0.3 1.5;
+}
+text.schematic.top {
+  adj: 0.5 -0.8;
+}
+text.schematic.q1 {
+  adj: -0.5 -0.8;
+}
+text.schematic.right {
+  adj: -0.8 0.5;
+}
+text.schematic.q3 {
+  adj: 1.8 1.5;
+}
+text.schematic.q4 {
+  adj: 1.8 -0.5;
+}
+text.schematic.x, text.schematic.y {
+  col: #777777;
+}
+
+
+/** diffusion schematic **/
+
+par.schematic.diffusion {
+  mai: 0.15 0.2 0.15 0.15;
+}
+diffusion {
+  lab.offset: 0.08;
+  lab.space: 0.12;
+  space: 0.1;
+  query.height: 0.1;
+}
+plot.schematic.diffusion {
+  type: n;
+  xlab: ;
+  ylab: ;
+  frame: FALSE;
+  axes: FALSE;
+}
+rect.schematic.diffusion.outer {
+  lwd: 1;
+  border: #000000;
+  col: NA;
+}
+rect.schematic.diffusion.cell {
+  lwd: NA;
+  col: #555555;
+}
+text.schematic.diffusion {
+  xpd: 1;
+  font: 1;
+  adj: 0.5 0.5;
+  col: #222222;
+}
+text.schematic.diffusion.label.y {
+  srt: 90;
+  adj: 0.5 0;
+}
+text.schematic.diffusion.label.query {
+  adj: 1 0.5;
+  font: 2;
+}
+
+
+/** genepool diagrams **/
+
+par.genepool {
+  mai: 0.1 0.02 0.1 0.1;
+}
+plot.genepool {
+  xlab: ;
+  ylab: ;
+  main: ;
+  xaxs: i;
+  yaxs: i;
+  type: n;
+}
+genepool {
+  border.space: 0.8;
+  lab.space: 0.09;
+  lab.offset: -0.02;
+  legend.w: 0.1;
+  legend.offset: 0.04;
+  legend.h: 0;
+}
+text.genepool {
+  col: #222222;
+}
+text.genepool.label {
+  adj: 0 0.5;
+  cex: 0.85;
+}
+text.genepool.legend {
+  adj: 0 0.5;
+  cex: 0.85;
+}
+text.genepool.main {
+  adj: 0 0.5;
+}
+rect.genepool {
+  lwd: 1;
+  border: #444444;  
+}
+points.genepool {
+  pch: 19;
+  cex: 0.5;
+  col: #999999;
+}
+polygon.genepool {
+  lwd: 2;
+  lty: 1;
+  col: NA;
+}
+polygon.genepool.legend {
+  lty: 1;
+  border: #666666;
+}
+polygon.genepool.bg {
+  lwd: 0.5;
+  lty: 1;
+}
+polygon.genepool.A {
+  border: #dd0022;
+}
+polygon.genepool.B {
+  border: #2222dd;
+}
+polygon.genepool.C {
+  border: #11bb55;
+}
+polygon.genepool.D {
+  border: #ec7d10;
+}
+polygon.genepool.E {
+  border: #1c3144;
+}
+benchmark {
+  height: 0.12;
+  lab.offset: 0.04;
+}
+polygon.benchmark {
+  border: #666666;
+  lwd: 1.5;
+}
+text.benchmark.inner {
+  adj: 0.5 0.5;
+  col: #222222;
+  cex: 0.85;
+}
+text.benchmark.outer {
+  adj: 0 0.5;
+  col: #222222;
+  cex: 0.85;
+  font: 3;
+}
+text.benchmark.title {
+  col: #222222;
+  adj: 0 0.5;
+}
+points.benchmark {
+  cex: 0.5;
+  col: #999999;
+  pch: 19;
+  lwd: 0;
+}
+points.benchmark.A {
+  col: #dd0022;
+}
+points.benchmark.B {
+  col: #2222dd;
+}
+points.benchmark.C {
+  col: #11bb55;
+}
+points.benchmark.D {
+  col: #ec7d10;
+}
+points.benchmark.O {
+  pch: 19;
+  cex: 0.55;
+}
+
+
+
+/** tauprecision diagrams **/
+
+targets {
+  /** relative widths for target name and its composition **/
+  widths: 0.05 0.95;
+  offsets: 0.04 0.28;
+}
+par.targets {
+  mai: 0.1 0.2 0.2 0.1;
+}
+plot.targets, plot.tauprecision {
+  xlab: ;
+  ylab: ;
+  xaxs: i;
+  yaxs: i;
+  type: n;
+  axes: FALSE;
+}
+polygon.targets {
+  border: #222222;
+  lwd: 1;
+} 
+mtext.targets.main {
+  cex: 1;
+}
+text.targets {
+  cex: 0.9;
+  adj: 0 0.5;
+}
+text.targets.setname {
+  font: 2;
+  col: #222222;
+}
+text.targets.threedots {
+  font: 1;
+  col: #222222;
+}
+text.targets.set {
+  font: 1;
+  col: #222222;
+}
+
+
+par.tauprecision {
+  mai: 0.1 0.2 0.05 0.1;
+}
+tauprecision {
+  lheight: 0.2;
+  tau.width: 0.6;
+  comment.width: 1.3;
+}
+text.tauprecision {
+  cex: 0.9;
+  col: #222222;
+}
+text.tauprecision.header {
+  cex: 0.9;
+  col: #222222;
+  font: 2;
+}
+text.tauprecision.queryname {
+  font: 2;
+  col: #222222;
+}
+text.tauprecision.value {
+  cex: 1.0;
+  col: #444444;
+}
+text.tauprecision.comment {
+  cex: 0.9;
+  col: #444444;
+  font: 3;
+  adj: 0.5 0.5;
+}
+lines.tauprecision.divider {
+  lwd: 0.5;
+  col: #aaaaaa;
+}
+
+

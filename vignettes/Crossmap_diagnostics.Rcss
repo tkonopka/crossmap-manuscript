@@ -1,0 +1,26 @@
+/** plot styles for diagnostics plots **/
+
+diagnostics {
+  col: #333333 #dd3333 #dd6666 #dd9999 #ddaaaa;
+}
+par.diagnostics {
+  mar: 6 8 6 3;
+  yaxs: i;
+  xaxs: i;
+  cex: 2;
+}
+barplot.diagnostics {
+  las: 1;
+  cex.names: 3.5;
+  cex.axis: 2.8;
+}
+mtext.diagnostics.xlab {
+  line: 3;
+  cex: 2.4;
+}
+mtext.diagnostics.main {
+  line: 1;
+  cex: 2.8;
+  font: 2;
+}
+

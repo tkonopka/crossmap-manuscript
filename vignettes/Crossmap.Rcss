@@ -1,0 +1,1342 @@
+/** plot styles for Crossmap.Rmd **/
+
+
+par {
+  ps: 7;
+  cex: 1;
+}
+par.empty {
+  mai: 0.01 0.01 0.01 0.01;
+}
+
+plot {
+  type: n;
+  axes: FALSE;
+  frame: FALSE;
+  xlab: ;
+  ylab: ;
+  main: ;
+}
+axis {
+  las: 1;
+}
+rect, points, text, mtext {
+  xpd: 1;
+}
+
+
+/** multipanel **/
+
+text.multipanel {
+  cex: 1.72;
+  font: 2;
+  xpd: 1;
+  adj: 0 1.1;
+}
+
+
+/** graphs/networks **/
+
+graph { 
+  x: 0.011;
+  y: 0.02;
+}
+par.graph {
+  mai: 0.15 0.15 0.15 0.15;
+}
+par.graph.series {
+  mai: 0.05 0.05 0.05 0.05;
+}
+rect.graph.label {
+  border: NA;
+  col: #ffffff;
+}
+text.graph.gridlabel {
+  cex: 1.2;
+}
+text.graph.gridlabel.side {
+  srt: 90;
+}
+text.graph.label {
+  cex: 0.9;
+  col: #181818;
+}
+points.graph {
+  cex: 1.2;
+  pch: 21;
+}
+lines.graph {
+  lwd: 2;
+}
+lines.graph.rank_0 {
+  col: #2222dd;
+  lwd: 1.5;
+}
+lines.graph.series.rank_0 {
+  col: #2222dd;
+  lwd: 1;
+}
+lines.graph.rank_1 {
+  col: #000000;
+  lwd: 5.5;
+}
+lines.graph.series.rank_1 {
+  col: #000000;
+  lwd: 2.0;
+}
+lines.graph.rank_2, lines.graph.rank_3, lines.graph.rank_4 {
+  col: #dd0000;
+}
+lines.graph.rank_2 {
+  col: #dd0000;
+  lwd: 2.5;
+}
+lines.graph.series.rank_2 {
+  col: #dd000099;
+  lwd: 1.5;
+}
+lines.graph.rank_3 {
+  col: #dd000055;
+  lwd: 2.5;
+}
+lines.graph.series.rank_3 {
+  col: #dd00003a;
+  lwd: 1;
+}
+lines.graph.rank_4 {
+  col: #dd00001a;
+  lwd: 1;
+}
+lines.graph.series.rank_4 {
+  col: #dd00001a;
+  lwd: 0.5;
+}
+text.graph {
+  adj: 0.5 0.5;
+}
+mtext.graph.main {
+  cex: 1.4;
+  font: 2;
+  line: 0.4;
+  adj: 0;
+}
+mtext.graph.series.main {
+  cex: 1;
+  font: 1;
+}
+legend.graph {
+  bty: n;
+  seg.len: 1;
+  y.intersp: 0.55;
+  title.adj: 0.5;
+}
+
+
+/** barplot with evaluation metrics **/
+
+par.evaluation {
+  mai: 0.05 1.6 0.35 0.05;
+  mgp: 0 0.2 0;
+}
+evaluation {
+  lab.offset: 0.05;
+}
+rect.evaluation {
+  border: #444444;
+  lwd: 0.5;
+}
+rect.evaluation.precision_mean, rect.evaluation.precision_q50 {
+  col: #aa8833;
+}
+rect.evaluation.precision_N_mean, rect.evaluation.precision_N_q50 {
+  col: #bbbb99;
+}
+rect.evaluation.pathlen_q50, rect.evaluation.pathlen_mean {
+  col: #aa4488;
+}
+rect.evaluation.pathlen_N_q50, rect.evaluation.pathlen_N_mean {
+  col: #dd77ff;
+}
+axis.evaluation {
+  tck: -0.04;
+  cex.axis: 0.85;
+}
+text.evaluation.y {
+  adj: 1 0.5;
+  cex: 0.85;
+}
+axis.evaluation.x {
+  line: -0.1;
+}
+mtext.evaluation.xlab {
+  line: 0.8;
+}
+
+
+/** separate text **/
+
+par.separate {
+  mai: 0.01 0.01 0.01 0.01;
+}
+plot.separate {
+  frame: FALSE;
+  axes: FALSE;
+  xlab: ;
+  ylab: ;
+  type: n;
+}
+text.separate {
+  adj: 0.5 0.5;
+}
+
+
+
+/** trend plots **/
+
+par.boxtrends {
+  mai: 0.12 0.38 0.14 0.0;
+  mgp: 0 0.1 0.0;
+}
+par.boxtrends.noylab {
+  mai: 0.12 0.15 0.14 0.23;
+}
+par.separate.boxtrends.title {
+  mai: 0.01 0.38 0.01 0.23;
+}
+text.separate.boxtrends.title {
+  cex: 1;
+  font: 2;
+  adj: 0.5 0.5;
+}
+boxtrends {
+  width: 1.0;
+  space: 1.0;
+}
+plot.boxtrends {
+  type: n;
+  xlab: ;
+  frame: FALSE;
+}
+box.boxtrends {
+  col: #cccccc;
+  lwd: 0.5;
+}
+axis.boxtrends {
+  lwd: 1;
+  cex.axis: 0.85;
+  col: #000000;
+  col.axis: #222222;
+  tck: -0.035;
+}
+axis.boxtrends.x {
+  line: -0.4;
+}
+axis.boxtrends.y {
+  line: 0.1;
+}
+rect.boxtrends {
+  lwd: 0.5;
+  border: #222222;
+}
+points.boxtrends.fisher, lines.boxtrends.fisher, rect.boxtrends.fisher {
+  col: #d7c9e0;
+}
+points.boxtrends.search, lines.boxtrends.search, rect.boxtrends.search {
+  col: #b27c66;
+}
+points.boxtrends.decomp, lines.boxtrends.decomp, rect.boxtrends.decomp {
+  col: #70587c;
+}
+rect.boxtrends.components1 {
+  col: #dd000033;
+}
+rect.boxtrends.components2 {
+  col: #dd000066;
+}
+rect.boxtrends.components3 {
+  col: #dd000099;
+}
+rect.boxtrends.components4 {
+  col: #dd0000cc;
+}
+rect.boxtrends.coverage0_25 {
+  col: #2222dd33;
+}
+rect.boxtrends.coverage0_5 {
+  col: #2222dd66;
+}
+rect.boxtrends.coverage0_75 {
+  col: #2222dd99;
+}
+rect.boxtrends.coverage1 {
+  col: #2222ddcc;
+}
+rect.boxtrends.signal0_25 {
+  col: #ec7d1033;
+}
+rect.boxtrends.signal0_5 {
+  col: #ec7d1066;
+}
+rect.boxtrends.signal0_75 {
+  col: #ec7d1099;
+}
+rect.boxtrends.signal1 {
+  col: #ec7d10cc;
+}
+rect.boxtrends.config_labeluniform_n5_diff0, rect.boxtrends.config_labelic_n5_diff0, rect.boxtrends.diffusion0 {
+  col: #00142733;
+}
+rect.boxtrends.config_labeluniform_n5_diff0_05, rect.boxtrends.config_labelic_n5_diff0_05, rect.boxtrends.diffusion0_05 {
+  col: #00142788;
+}
+rect.boxtrends.config_labeluniform_n5_diff0_1, rect.boxtrends.config_labelic_n5_diff0_1, rect.boxtrends.diffusion0_1 {
+  col: #001427aa;
+}
+rect.boxtrends.config_labeluniform_n5_diff0_2, rect.boxtrends.config_labelic_n5_diff0_2, rect.boxtrends.diffusion0_2 {
+  col: #001427cc;
+}
+points.boxtrends {
+  pch: 19;
+}
+lines.boxtrends.whiskers {
+  lwd: 1.5;
+  lend: 2;
+}
+lines.boxtrends.mid {
+  lend: 1;
+  lwd: 2;
+  col: #222222;
+}
+points.boxtrends.mean {
+  pch: 19;
+  cex: 0.4;
+  col: #222222;
+}
+mtext.boxtrends.x {
+  line: 0.6;
+}
+mtext.boxtrends.y {
+  line: 0.65;
+}
+mtext.boxtrends.main {
+  line: 0.0;
+  cex: 0.85;
+  adj: 0;
+  font: 3;
+}
+
+
+/** legend panel for boxtrends **/
+par.boxtrends.legend {
+  mai: 0.05 0.05 0.05 0.05;
+}
+boxtrends {
+  leg.w: 0.2;
+  leg.h: 0.055;
+}
+legend.boxtrends {
+  bty: n;
+  cex: 0.85;
+  xpd: 1;
+  y.intersp: 0.6;
+  x.intersp: 0.5;
+  pt.lwd: 0;
+}
+text.boxtrends.legend {
+  cex: 0.85;
+  adj: 0 0.5;
+}
+rect.boxtrends.legend {
+  lwd: 0.5;
+}
+
+
+/** boxtrends in a grid **/
+
+
+par.boxtrends.grid {
+  mai: 0 0 0 0;
+}
+par.boxtrends.grid.left {
+  mai: 0.0 0.2 0.0 0.0;
+}
+par.boxtrends.grid.bottom {
+  mai: 0.2 0.0 0.0 0.0;
+}
+par.boxtrends.grid.bottomleft {
+  mai: 0.2 0.2 0.0 0.0;
+}
+axis.boxtrends.grid.x {
+  line: -0.3;
+}
+axis.boxtrends.grid.y {
+  line: 0.2;
+}
+
+
+
+/** barplots for diffusion explanations **/
+
+par.diffusion {
+  mai: 0.1 0.35 0.35 0.1;
+  mgp: 0 0 0;
+}
+par.diffusion.genes {
+  mai: 0.05 0.45 0.35 0.15;
+}
+diffusion {
+  barwidth: 0.8;
+}
+plot.diffusion {
+  type: n;
+  xlab: ;
+  ylab: ;
+  main: ;
+  frame: FALSE;
+  axes: FALSE;
+  yaxs: i;
+}
+rect.diffusion {
+  border: 0;
+  col: #1d84b5;
+}
+rect.diffusion.manual {
+  col: #176087;
+}
+rect.diffusion.value_lo, rect.diffusion.value_auto {
+  col: #feb0b0;
+}
+rect.diffusion.value_diffused {
+  col: #1d84b5;
+}
+rect.diffusion.value_hi, rect.diffusion.value_manual {
+  col: #ee5555;
+}
+axis.diffusion.x {
+  line: 0.1;
+  cex.axis: 0.85;
+  tck: -0.025;
+}
+axis.diffusion.manual.x {
+  tck: -0.025;
+}
+axis.diffusion.y {
+  cex: 0.85;
+  cex.axis: 0.8;
+  line: -0.0;
+}
+mtext.diffusion.x {
+  adj: 0;
+  line: 0.8;
+}
+legend.diffusion {
+  bty: n;
+  xpd: 1;
+  x.intersp: 0.3;
+  y.intersp: 0.6;
+  cex: 0.85;
+  seg.len: 0.6;
+}
+text.diffusion.overflow {
+  cex: 0.75;
+  adj: -0.1 0.5;
+  col: #ffffff;
+}
+
+
+/** quantile boxplots **/
+
+qboxes {
+  barwidth: 0.8;
+}
+par.qboxes {
+  mai: 0.1 1.2 0.35 0.05;
+  mgp: 0 0 0;
+  ps: 7;
+}
+par.qboxes.itemlen {
+  mai: 0.1 0.35 0.35 0.1;
+  mgp: 0 0 0;
+  ps: 7;
+}
+plot.qboxes {
+  xlab: ;
+  ylab: ;
+  type: n;
+  frame: FALSE;
+  axes: FALSE;  
+}
+axis.qboxes {
+  lwd: 1;
+  tck: -0.018;
+  cex.axis: 0.85;
+}
+axis.qboxes.itemlen.x {
+  tck: -0.02;
+  line: 0.1;
+}
+axis.qboxes.y {
+  lwd: 0;
+}
+mtext.qboxes.xlab {
+  line: 0.8;
+}
+mtext.qboxes.ylab {
+  line: 0.8;
+}
+mtext.qboxes.main {
+  line: 1.2;
+}
+rect.qboxes {
+  lwd: 0.5;
+  col: #65def1;
+}
+rect.qboxes.itemlen {
+  col: #dd6666;
+  lwd: 0.5;
+}
+rect.qboxes.mid {
+  lend: 1;
+  lwd: 2;
+  col: #222222;
+}
+lines.qboxes.whiskers {
+  lwd: 1.5;
+  lend: 2;
+  col: #65def1;
+}
+lines.qboxes.itemlen.whiskers {
+  col: #dd6666;
+}
+
+
+/** performance bar plots **/
+
+perfbars {
+  width: 0.8;
+}
+par.perfbars.left {
+  mai: 0.25 0.3 0.3 0.0;
+  mgp: 0 0 0;
+}
+par.perfbars.right {
+  mai: 0.25 0.06 0.3 0.24;
+  mgp: 0 0 0;
+}
+par.perfbars.plain.left {
+  mai: 0.35 0.3 0.25 0.12;
+  mgp: 0 0 0;
+}
+par.perfbars.plain.right {
+  mai: 0.35 0.24 0.25 0.18;
+  mgp: 0 0 0;
+}
+plot.perfbars {
+  axes: FALSE;
+  xlab: ;
+  ylab: ;
+  main: ;
+  yaxs: i;
+}
+axis.perfbars {
+  tck: 0;
+  cex.axis: 0.85;
+}
+axis.perfbars.x {
+  line: -0.3;
+}
+axis.perfbars.y {
+  tck: -0.04;
+  line: 0.2;
+}
+text.perfbars.plain.x {
+  adj: 1 0.5;
+  srt: 35;
+}
+mtext.perfbars.xlab {
+  line: 0.3;
+}
+mtext.perfbars.main {
+  adj: 0;
+  line: 0.6;
+}
+mtext.perfbars.plain.main {
+  adj: 0;
+  line: 0.1;
+}
+mtext.perfbars.submain {
+  adj: 0;
+  line: 0.1;
+  font: 3;
+  cex: 0.9;
+}
+rect.perfbars {
+  lwd: 0;
+  border: NA;
+  col: #dd6666;
+}
+rect.perfbars.zero {
+  col: #ddcccc;
+}
+lines.perfbars.errorbars {
+  col: #222222;
+  lwd: 1;
+}
+
+
+
+/** stacked barplot **/
+
+par.stackedbars {
+  mai: 0.25 0.15 0.3 0.25;
+}
+par.stackedbars.manual {
+ mai: 0.6 0.2 0.2 0.05;
+}
+stackedbars {
+  barwidth: 0.8;
+  padding: 0.08;
+}
+plot.stackedbars {
+  yaxs: i;
+}
+axis.stackedbars {
+  lwd: 1;
+}
+rect.stackedbars {
+  border: NA;
+  lwd: 0;
+}
+rect.stackedbars.changed {
+  col: #6666ee;
+}
+rect.stackedbars.unchanged {
+  col: #d0d0f0;
+}
+text.stackedbars.value {
+  cex: 0.75;
+  adj: 0.5 0.5;
+  col: #000000;
+}
+text.stackedbars.x {
+  adj: 1 0.5;
+  srt: 35;
+  xpd: 1;
+}
+mtext.stackedbars.ylab {
+  line: 0;
+}
+mtext.stackedbars.main {
+  adj: 0.5;
+  line: 0.3;
+}
+legend.stackedbars {
+  x.intersp: 0.35;
+  y.intersp: 0.6;
+  xpd: 1;
+  bty: n;
+  pt.cex: 0.8;
+  cex: 0.85;
+}
+
+
+/** histograms **/
+par.hist {
+  mai: 0.35 0.35 0.2 0.1;
+  mgp: 0 0 0;
+}
+par.hist.top {
+  mai: 0.1 0.3 0.25 0.1;
+}
+par.hist.bottom {
+  mai: 0.35 0.3 0.0 0.1;
+}
+hist {
+  axes: FALSE;
+  xlab: ;
+  ylab: ;
+  main: ;
+  col: #dd6666;
+  border: NA;
+  lwd: 0.5;
+}
+hist.top, hist.bottom {
+  col: #eeaaaa;
+}
+hist.bottom {
+  col: #ee5555;
+}
+axis.hist {
+  lwd: 0;
+  cex.axis: 0.85;
+}
+axis.hist.x {
+  lwd: 0;
+  line: -0.4;
+}
+axis.hist.y {
+  line: 0.05;
+}
+mtext.hist.xlab {
+  line: 0.4;
+}
+mtext.hist.ylab {
+  line: 1.2;
+}
+mtext.hist.main {
+  line: -0.1;
+  adj: 0.0;
+}
+mtext.hist.top.main {
+  line: 0.1;
+  adj: 0.0;
+}
+arrows.hist {
+  length: 0.05;
+  col: #444444;
+}
+text.hist.label {
+  cex: 0.9;
+  adj: -0.1 0.5;
+  col: #444444;
+}
+text.hist.manual {
+  cex: 0.9;
+  adj: 0 0.5;
+  col: #444444;
+}
+lines.hist.mean {
+  lwd: 1.5;
+  col: #000000;
+  lend: 1;
+}
+text.hist.mean {
+  cex: 0.75;
+  col: #444444;
+  adj: 1.1 1.2;
+}
+
+
+/** tables **/
+par.table {
+  mai: 0.15 0.15 0.3 0.1;
+}
+par.table.expout {
+  mai: 0.1 0.15 0.05 0.15;
+}
+par.table.expout.long {
+  mai: 0.15 0.2 0.15 0.15;
+}
+par.table.expout.long.column {
+  mai: 0.1 0.15 0.2 0.1;
+}
+par.table.expout.long.column2 {
+  mai: 0.1 0.15 0.25 0.1;
+}
+par.table.expout.genesets {
+  mai: 0.15 0.15 0.15 0.15;
+}
+par.table.expout.easy {
+  mai: 0.15 0.2 0.0 0.25;
+}
+table.expout {
+  /** vertical offset between adjacent ids and names **/
+  id.name.offset: 0.16;
+  /** row.height: 0.26; **/
+}
+table.examples {
+  id.name.offset: 0.18;
+}
+table.expout.long {
+  id.name.offset: 0.17;
+}
+plot.table {
+  xlab: ;
+  ylab: ;
+  main: ;
+  xaxs: i;
+  yaxs: i;
+  type: n;
+}
+text.table.header {
+  font: 2;
+}
+text.table.cell {
+  cex: 0.9;
+}
+text.table.cell.target_id, text.table.cell.query_id, text.table.cell.expected_id {
+  font: 2;
+}
+mtext.table.main {
+  adj: 0;
+  font: 1;
+  line: 0.2;
+  xpd: 1;
+}
+mtext.table.expout.main {
+  line: -0.2;
+  adj: 0;
+}
+text.table.expout.header {
+  adj: 0 0.5;
+}
+text.table.expout.cell.id {
+  adj: 0 0.5;
+  font: 2;
+  cex: 0.6;
+  col: #222222;
+}
+text.table.expout.cell.name {
+  adj: 0 0.5;
+  font: 3;
+  cex: 0.8;
+  col: #000000;
+}
+text.table.expout.cell.score {
+  cex: 0.8;
+  col: #000000;
+  adj: 0.5 0.5;
+}
+lines.table.expout.header {
+  lwd: 0.5;
+  col: #000000;
+  xpd: 1;
+}
+lines.table.expout.divider {
+  lwd: 0.5;
+  col: #777777;
+  xpd: 1;
+}
+
+
+/** dataitem - example of manual training item **/
+par.dataitem.left {
+  mai: 0.1 0.15 0.2 0.03;
+  mgp: 0 0 0;
+}
+par.dataitem.right {
+  mai: 0.1 0.03 0.2 0.15;
+  mgp: 0 0 0;
+}
+par.dataitem.topleft {
+  mai: 0.02 0.15 0.18 0.1;
+}
+par.dataitem.bottomleft {
+  mai: 0.15 0.15 0.05 0.1;
+}
+plot.dataitem {
+  xlab: ;
+  ylab: ;
+  main: ;
+  xaxs: i;
+  yaxs: i;
+  type: n;
+}
+text.dataitem {
+  adj: 0 0.5;
+} 
+text.dataitem.label {
+  font: 2;
+  cex: 0.9;
+  col: #000000;
+}
+text.dataitem.content {
+  cex: 0.9;
+  col: #444444;
+}
+mtext.dataitem.main {
+  adj: 0;
+  line: 0.0;
+}
+polygon.dataitem {
+  border: #222222;
+  lwd: 1;
+}
+
+
+/** umap **/
+
+par.umap {
+  mai: 0.05 0.2 0.2 0.05;
+}
+par.umap.column {
+  mai: 0.05 0.35 0.15 0.35;
+}
+par.umap.legend {
+  mai: 0.2 0.0 0.2 0.1;
+}
+plot.umap {
+  frame: FALSE;
+  axes: FALSE;
+  xlab: ;
+  ylab: ;
+  main: ;
+  cex: 0.22;
+  pch: 19;
+  type: p;
+}
+plot.umap.legend {
+  frame: FALSE;
+  type: n;
+}
+points.umap {
+  pch: 19;
+  cex: 0.25;
+}
+points.umap.column {
+  cex: 0.22;
+}
+box.umap {
+  lwd: 0.25;
+  col: #a9a9a9;
+}
+points.umap.largedots {
+  cex: 0.85;
+}
+mtext.umap.main {
+  line: 0;
+  adj: 0;
+}
+legend.umap {
+  xpd: 1;
+  ncol: 1;
+  x.intersp: 0.4;
+  y.intersp: 0.5;
+  bty: n;
+  cex: 0.85;
+  pt.cex: 0.5;
+  pch: 21;
+  col: #333333;
+  pt.lwd: 0.5;
+}
+rect.umap.cluster {
+  lwd: 1;
+  lty: 2;
+  border: #000000;
+  col: NA;
+}
+text.umap.cluster {
+  cex: 0.85;
+  font: 3;
+  col: #555555;
+  adj: 0.5 1;
+}
+
+/** noisy scatter plots **/
+
+par.noisy {
+  mar: 4 4 3 3;
+  ps: 12;
+}
+plot.noisy {
+  axes: TRUE;
+  type: p;
+  pch: 19;
+}
+points.noisy {
+  pch: 19;
+}
+
+
+
+/** calibration lines plots **/
+par.caliblines {
+  mai: 0.35 0.45 0.04 0.45;
+  mgp: 0 0 0;
+}
+par.caliblines.zoom {
+  mai: 0.04 0.45 0.15 0.45;
+  mgp: 0 0 0;
+}
+plot.caliblines {
+  axes: FALSE;
+  frame: FALSE;
+  type: n;    
+}
+rect.caliblines.stripe {
+  col: #f0f0f0;
+  lwd: 0.5;
+  border: #e0e0e0;
+}
+axis.caliblines {
+  tck: -0.015;
+}
+axis.caliblines.x {
+  line: -0.15;
+}
+axis.caliblines.y {
+  line: 0.2;
+}
+axis.caliblines.zoom {
+  tck: 0;
+}
+axis.caliblines.zoom.y {
+  labels: NA;
+  tck: 0;
+}
+mtext.caliblines.xlab {
+  line: 0.55;
+}
+mtext.caliblines.ylab {
+  line: 1.15;
+}
+points.caliblines {
+  pch: 21;
+  bg: #ffffff;
+  cex: 0.65;
+  lwd: 1.5;
+}
+lines.caliblines {
+  lwd: 2;
+}
+points.caliblines.precision, lines.caliblines.precision {
+  col: #6666dd;
+}
+points.caliblines.pathlen, lines.caliblines.pathlen {
+  col: #dd6666;
+}
+text.caliblines.label {
+  adj: 0 0.5;
+}
+text.caliblines.label, text.caliblines.min, text.caliblines.max, text.caliblines.first {
+  cex: 0.85;
+  col: #444444;
+}
+text.caliblines.max {
+  adj: 0.5 -0.8;
+}
+text.caliblines.min {
+  adj: 0.5 1.8;
+}
+text.caliblines.precision.first {
+  adj: 0 1.8;
+}
+text.caliblines.pathlen.first {
+  adj: 0 -0.8;
+}
+
+
+/** calibration heat maps **/
+calibheat {
+  legend.width: 0.04;
+  legend.padding: 0.065;
+  legend.height: 0.6;
+  legend.resolution: 96;
+  legend.textpad: 0.015;
+}
+par.calibheat {
+  mai: 0.35 0.45 0.3 0.45;
+  mgp: 0 0 0;
+}
+plot.calibheat {
+  axes: FALSE;
+  frame: FALSE;
+  type: n;    
+}
+axis.calibheat {
+  tck: -0.015;
+}
+axis.calibheat.x {
+  line: -0.15;
+}
+axis.calibheat.y {
+  line: 0.2;
+}
+mtext.calibheat.xlab {
+  line: 0.55;
+}
+mtext.calibheat.ylab {
+  line: 1.15;
+}
+mtext.calibheat.main {
+  adj: 0.5;
+  line: 0.1;
+}
+rect.calibheat.cell {
+  xpd: 0;
+  border: 0;
+  lwd: 0;
+}
+rect.calibheat.value {
+  col: NA;
+  lwd: 2;
+}
+text.calibheat {
+  cex: 0.8;
+}
+text.calibheat.min.pathlen {
+  col: #ffffff
+}
+text.calibheat.max.precision {
+  col: #000000;
+}
+text.calibheat.first {
+  col: #ffffff
+}
+rect.calibheat.legend {
+  xpd: 1;
+}
+rect.calibheat.legend.inner {
+  border: NA;
+  lwd: 0;
+}
+rect.calibheat.legend.outer {
+  lwd: 1;
+  col: NA;
+}
+text.calibheat.legend {
+  adj: 0 0.5;
+  cex: 0.85;
+}
+
+
+/** scatter plot **/
+
+par.scatter {
+  mai: 0.25 0.35 0.15 0.1;
+  mgp: 0 0 0;
+}
+plot.scatter {
+  axes: FALSE;
+  frame: FALSE;
+  type: n;
+}
+points.scatter {
+  pch: 19;
+  lwd: 1;
+  col: #2d7dd2;
+  cex: 0.4;
+}
+points.scatter.diff {
+  col: #d55672;
+}
+text.scatter.label {
+  adj: 0 0.5;
+  cex: 0.85;
+}
+axis.scatter {
+  tck: -0.02;
+  cex.axis: 0.85;
+}
+axis.scatter.x {
+  line: -0.3;
+}
+axis.scatter.y {
+  line: 0.2;
+}
+mtext.scatter.main {
+  line: -0.2;
+  adj: 0;
+  font: 3;
+}
+mtext.scatter.xlab {
+  line: 0.3;
+}
+mtext.scatter.ylab {
+  line: 1.0;
+}
+lines.scatter.model {
+  xpd: 0;
+  col: #000000;
+  lwd: 2;
+}
+text.scatter.correlation {
+  adj: 0 1.1;
+  font: 3;
+  cex: 0.85;
+  col: #444444;
+}
+
+
+
+/** chromosome scatter plot **/
+
+par.chromosome {
+  mai: 0.3 0.45 0.15 0.1;
+  mgp: 0 0 0;
+}
+plot.chromosome {
+  axes: FALSE;
+  frame: FALSE;
+  type: n;
+}
+points.chromosome {
+  pch: 19;
+  cex: 0.12;
+  col: #484848;
+  xpd: 0;
+}
+points.chromosome.DE {
+  col: #dd0000;
+  cex: 0.22;
+}
+lines.chromosome.centerline {
+  lwd: 1.5;
+  col: #888888;
+}
+axis.chromosome {
+  cex.axis: 0.85;
+  tck: -0.035;
+}
+axis.chromosome.x {
+  line: -0.3;
+}
+axis.chromosome.y {
+  line: 0.2;
+}
+mtext.chromosome.xlab {
+  line: 0.3;
+}
+mtext.chromosome.ylab {
+  line: 1.1;
+}
+mtext.chromosome.main {
+  line: -0.1;
+}
+legend.chromosome {
+  pch: 19;
+  cex: 0.85;
+  pt.cex: 0.35;
+  bty: n;
+  x.intersp: 0.35;
+  y.intersp: 0.45;
+}
+
+
+/** beeswarms **/
+
+beeswarm {
+
+}
+par.beeswarm {
+  mai: 0.15 0.4 0.15 0.15;
+  mgp: 0 0 0;
+}
+plot.beeswarm {
+  axes: FALSE;
+  frame: FALSE;
+  type: n;
+}
+beeswarm {
+  corralWidth: 0.8;
+  spacing: 1.1;
+}
+points.beeswarm {
+  pch: 19;
+  cex: 0.4;
+  lwd: 0.0;
+  col: #2d7dd2;
+}
+points.beeswarm.diff {
+  col: #d55672;
+}
+lines.beeswarm.mean {
+  lwd: 2;
+  col: #444444;
+}
+axis.beeswarm.x {
+  line: -0.4;
+}
+axis.beeswarm.y {
+  line: 0.1;
+  cex.axis: 0.85;
+}
+mtext.beeswarm.main {
+  font: 3;
+  adj: 0;
+  line: -0.1;
+}
+mtext.beeswarm.ylab {
+  line: 1.1;
+}
+
+
+/** barplot with outputs **/
+
+par.outputs {
+  mai: 0.01 1.4 0.55 0.1;
+  mgp: 0 0.0 0;
+}
+par.outputs.ehap {
+  mai: 0.1 0.8 0.3 0.1;
+  mgp: 0 0.0 0;
+}
+plot.outputs {
+  yaxs: i;
+}
+outputs {
+  label.offset: 0.18;
+  barwidth: 0.8;
+}
+rect.outputs {
+  col: #dd0000;
+  lwd: 0.5;
+  border: #444444;
+}
+rect.outputs.ehap {
+  col: #e6b2b2;
+}
+rect.outputs.ehap.enrichment {
+  col: #e7e7d9;
+}
+axis.outputs {
+  cex.axis: 0.85;
+}
+axis.outputs.x {
+  tck: -0.035;
+  line: -0.0;
+}
+axis.outputs.y.top {
+  font: 2;
+  cex: 0.75;
+  col.axis: #aaaaaa;
+}
+axis.outputs.ehap.decomp {
+  tck: -0.15;
+}
+axis.outputs.ehap.enrichment {
+  tck: -0.015;
+}
+mtext.outputs.xlab {
+  line: 0.6;
+}
+mtext.outputs.main {
+  line: 1.3;
+  adj: 1;
+}
+
+
+
+/** figures with example queries and hits **/
+
+par.examples {
+  mai: 0.1 0.15 0.1 0.1;
+}
+plot.examples {
+  xaxs: i;
+  yaxs: i;
+}
+text.examples.query, text.examples.diffusion {
+  cex: 1;
+  adj: 0.5 0.5;
+}
+text.examples.lhs {
+  adj: 0 0.5;
+  font: 3;
+  cex: 1;
+}
+text.examples.cell.id {
+  adj: 0 0.5;
+  font: 2;
+  cex: 0.6;
+}
+text.examples.cell.name, text.examples.others {
+  adj: 0 0.5;
+  font: 1;
+  cex: 0.8;
+}
+text.examples.others {
+  col: #444444;
+}
+
+
