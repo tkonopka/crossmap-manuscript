@@ -27,6 +27,6 @@ SOFTWARE.
 
 ## Data
 
-Content in the folder contains raw data downloaded from public data repositories
-and data files derived from those raw data. See the license notes for each
-data source for details.
+The data folder contains raw data downloaded from public repositories as well
+as files derived from those raw data. See the license notes for each data
+source for details.
