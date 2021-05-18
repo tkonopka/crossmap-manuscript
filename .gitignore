@@ -27,7 +27,6 @@ data
 *tiff
 *svg
 cache*
-vignettes/cache*
 vignettes/tables*
 
 # ignoring links to external

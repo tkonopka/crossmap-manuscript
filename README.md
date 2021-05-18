@@ -4,21 +4,21 @@ Analyses that accompany a manuscript describing the
 [crossmap](https://github.com/tkonopka/crossmap) software.
 
 This repository describes analyses of large datasets that are not included
-on github. A snapshot of data files - both raw and processed - is available at 
-on zenodo.
+on github. A snapshot of data files - both raw and processed - is available 
+on zenodo ([dataset 4287332](https://zenodo.org/record/4287332)).
 
 The repository can be used in two distinct ways. It is possible to use the 
 code to start with raw data files and perform a complete analysis, including 
-data-intensive calculations, to produce summary visualizations. Alternatively,
-it is possible to start with raw and processed data files, and only generate
-visualization based on the preprocessed data. 
+data-intensive calculations, and produce summary visualizations. Alternatively,
+it is possible to start with a combination of raw and processed data files, 
+and only generate visualization based on the preprocessed data. 
 
 
 ## Setup for a complete analysis
 
 The repository holds code for creating knowledge-bases with crossmap, using
 these knowledge-bases to process datasets, and visualize results. In order
-to execute these steps, several set up steps are required. Apart from the setup,
+to execute these steps, several setup steps are required. Apart from the setup,
 the total running-time for these calculations can be several hours.
 
 
@@ -57,7 +57,7 @@ other data. A snapshot of all the required files can be obtained from the
 
 Raw data must be transferred into crossmap instances. This can be performed
 by executing scripts in the `prep` directory. The `README.md` in that directory
-has additional explanation on each script.
+has additional details on each script.
 
 
 ### Vignettes
@@ -94,9 +94,10 @@ time for this approach should be around a minute.
 
 ### Raw and cached data files
 
-A snapshot of all raw and data files is available in a zenodo repository. Copy
-the content of `data`, `results`, and `cache` directories into the root of
-the repository.
+A snapshot of all raw and data files is available in a zenodo repository
+([dataset 4287332](https://zenodo.org/record/4287332)).  Copy the content of 
+`data`, `results`, and `cache` directories into the root of the repository.
+
 
 ### Analysis using cached data files
 

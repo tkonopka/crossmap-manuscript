@@ -8,7 +8,7 @@ header-includes:
   \usepackage{float}
   \usepackage{graphicx}
   \floatplacement{figure}{H}
-  \captionsetup[figure]{labelfont={bf},name={Figure}, labelsep=period}
+  \captionsetup[figure]{labelfont={bf}, name={Figure}, labelsep=period}
 ---
 
 
@@ -22,9 +22,9 @@ source("benchmarking.R")
 source("copynumber.R")
 # hp-mp translations
 source("hpmp.R")
-hpmp.diffusion.text <- c("incisors", "prominent", "axillary", "antitragus")
-hpmp.diffusion.ids <- c("MP:0001008", "HP:0011250", "HP:0006957",
-                        "HP:0006844", "HP:0002330")
+hpmp.diffusion.text <- c("incisors", "locomotor", "activity", "sleepy",
+                         "disabling", "heightened", "increased")
+hpmp.diffusion.ids <- c("MP:0001008", "HP:0006844", "HP:0002330")
 source("hpmp.diffusion.R")
 ```
 
@@ -52,7 +52,7 @@ plot.boxtrends.genesets <- function(methods, tau, series, show.xaxis=FALSE,
 ```
 
 
-```{r fig.benchmarks, echo=FALSE, eval=TRUE, fig.width=6.0, fig.height=3.6, fig.cap="\\textbf{Benchmarking search and decomposition on synthetic gene sets.} \\textbf{(A)} Schematic of the procedure for the generation of synthetic gene sets. Starting from a pool of genes (dots) and a set of curated gene sets (color boundaries), the procedure entails three distinct strategies. One strategy picks genes from between one and four curated gene sets (top). Another strategy modulates the proportion of genes that are transferred from the curated sets into the synthetic sets (middle). The last strategy supplements each synthetic set with genes picked from the pool at random, modulating the signal-to-noise signal (bottom). The schematic is an exact repeat of a figure panel in the main manuscript. \\textbf{(B)} Summary of performance of Fisher, search, and decomposition algorithms on an ensemble of 64,000 synthetic gene sets generated according to the schematic in (A). The evaluation metric is the total Jaccard Index (JI): for a benchmark set made up of $n$ components, this metric takes the $n$ top-ranked hits from each method, evaluates the JI between the hits and the true curated sets, and reports the sum of the JI values. Effectively, the total JI counts the number of expected sets found. Box plot bounds, center line, and whiskers represent 25\\%-75\\%, 50\\%, and 5\\%-95\\% quantiles. Boxes contain results from all benchmark sets generated according to a mixture of strategies. Rows stratify the data according to number of components, coverage, and signal. Columns show results computed using crossmap instances using uniform feature weighting and feature weighting based on information content (IC). In the latter, genes that appear in many gene sets are down-weighted as non-informative. The Fisher method does not utilize weighting, so Fisher results are exactly the same in the two columns. \\textbf{(C)} Effect of diffusion on search and decomposition performance. In these calculations, diffusion appears to lower performance slightly."}
+```{r fig.benchmarks, echo=FALSE, eval=TRUE, fig.width=6.0, fig.height=3.6, fig.cap="\\textbf{Benchmarking search and decomposition on synthetic gene sets.} \\textbf{(A)} Schematic of the procedure for the generation of synthetic gene sets. Starting from a pool of genes (dots) and a set of curated gene sets (color boundaries), the procedure entails three distinct strategies. One strategy picks genes from between one and four curated gene sets (top). Another strategy modulates the proportion of genes that are transferred from the curated sets into the synthetic sets (middle). The last strategy supplements each synthetic set with genes picked from the pool at random, modulating the signal-to-noise signal (bottom). The schematic is an exact repeat of a figure panel in the main manuscript. \\textbf{(B)} Summary of performance of Fisher, search, and decomposition algorithms on an ensemble of 64,000 synthetic gene sets generated according to the schematic in (A). The evaluation metric is the sum of Jaccard Index (JI): for a benchmark set made up of $n$ components, this metric takes the $n$ top-ranked hits from each method, evaluates the JI between the hits and the true curated sets, and reports the sum of the JI values. Effectively, the total JI counts the number of expected sets found. Box plot bounds, center line, and whiskers represent 25\\%-75\\%, 50\\%, and 5\\%-95\\% quantiles. Boxes contain results from all benchmark sets generated according to a mixture of strategies. Rows stratify the data according to number of components, coverage, and signal. Columns show results computed using crossmap instances using uniform feature weighting and feature weighting based on information content (IC). In the latter, genes that appear in many gene sets are down-weighted as non-informative. The Fisher method does not utilize weighting, so Fisher results are exactly the same in the two columns. \\textbf{(C)} Effect of diffusion on search and decomposition performance. In these calculations, diffusion appears to lower performance slightly."}
 layout(matrix(c(1, 2, 3, 3, 4,
                 5, 6, 7, 8, 9,
                 5, 6,10,11,12,
@@ -188,13 +188,14 @@ hist.mean <- function(hist.data, y=max(hist.data$counts), adj=c(0, 0)) {
 ```
 
 
-```{r fig.lexical, eval=TRUE, echo=FALSE, fig.width=6.0, fig.height=3.0, fig.cap="\\textbf{Stratification of HP-MP phenotype translation.} \\textbf{(A)} Examples of human phenotype (HP) terms (column ‘Query`) and expected mammalian phenotype (MP) translations (column ‘Expected’) for which the phenotype titles are exact lexical matches. \\textbf{(B)} Precision and path-length metrics for search-based phenotype translation on the subset of HP terms for which phenotype titles have exact lexical matches to MP terms. Both metrics are evaluated using the top search result and using the best choice out of the top 5 search results. Precision is not perfect (below unity) because the automated translation is based on the full phenotype description, including synonyms and comments, which are not lexically similar to MP terms. Error bars represent 5%-95% quantiles. \\textbf{(C)} Distribution of path lengths for translations of HP terms that have exact lexical matches to MP terms. The distribution is dominated by exactly-correct translations with path-length of zero. \\textbf{(D-F)} Analogous to (A-C), but using the subset of HP terms that do not have exact lexical matches to MP terms based on phenotype title. Panel (D) illustrates that ‘expected’ MP translations do not always capture the full meaning of the human phenotypes. Panel (F) shows that search nonetheless produces translations that match the expected results for almost half the queries. The long tail contributes to lower precision and high path-length scores for this group of HP terms."}
-layout(matrix(c(1,1,1,1,
-                2,3,4,5,
-                rep(6, 4),
-                rep(7, 4),
-                8,9,10,11), ncol=4, nrow=5, byrow=T),
-       widths=c(2.4, 0.8, 0.8, 2.0), height=c(0.3, 1.2, 0.2, 0.3, 1.2))
+```{r fig.lexical, eval=TRUE, echo=FALSE, fig.width=6.4, fig.height=3.0, fig.cap="\\textbf{Stratification of HP-MP phenotype translation.} \\textbf{(A)} Examples of human phenotype (HP) terms (column ‘Query`) and expected mammalian phenotype (MP) translations (column ‘Expected’) for which the phenotype titles are exact lexical matches. \\textbf{(B)} Precision and path-length metrics for search-based phenotype translation on the subset of HP terms for which phenotype titles have exact lexical matches to MP terms. Both metrics are evaluated using the top search result and using the best choice out of the top 5 search results. Precision is not perfect (below unity) because the automated translation is based on the full phenotype description, including synonyms and comments, which are not lexically similar to MP terms. Error bars represent 5%-95% quantiles. \\textbf{(C)} Distribution of path lengths for translations of HP terms that have exact lexical matches to MP terms. The distribution is dominated by exactly-correct translations with path-length of zero. \\textbf{(D-F)} Analogous to (A-C), but using the subset of HP terms that do not have exact lexical matches to MP terms based on phenotype title. Panel (D) illustrates that ‘expected’ MP translations do not always capture the full meaning of the human phenotypes. Panel (F) shows that search nonetheless produces translations that match the expected results for almost half the queries. The long tail contributes to lower precision and high path-length scores for this group of HP terms."}
+layout(matrix(c(1,1,1,1,1,1,
+                2,3,4,5,6,7,
+                rep(8, 6),
+                rep(9, 6),
+                10,11,12,13,14,15), ncol=6, nrow=5, byrow=T),
+       widths=c(2.4, 0.1, 0.8, 0.8, 0.3, 2.0),
+       height=c(0.3, 1.2, 0.2, 0.3, 1.2))
 #
 # partition results into easy and not-easy
 noteasy.data <- hpmp.viz[viz=="plain" & name.match.ji <= 0.6]
@@ -214,6 +215,8 @@ plot.table.expout(easy.df, widths=c(0.8, 0.8, 0.8),
                   Rcssclass=c("expout", "easy"))
 multipanelLabel(panel.labels[1])
 #
+par(mai=rep(0.01, 4)); plot.new()
+#
 # results for easy results (names match well)
 plot.perfbars2(easy.data, value.cols=c("precision", "precision_bestN"),
                labels=c("best of 1", "best of 5"),
@@ -224,6 +227,9 @@ plot.perfbars2(easy.data, value.cols=c("pathlen", "pathlen_bestN"),
                labels=c("best of 1", "best of 5"),
                ylim=c(0, 5), axis.y=-0.075,
                main="Path length", Rcssclass=c("plain", "right"))
+#
+par(mai=rep(0.01, 4)); plot.new()
+#
 best.hist <- plot.hist(easy.data$pathlen_bestN,
                        xlab="Path length, best of 5", ylab="N. queries",
 		               xlim=c(-0.2, 10),
@@ -249,6 +255,8 @@ plot.table.expout(noteasy.df, widths=c(0.8, 0.8, 0.8),
                   show.columns=c("query", "expected"),
                   Rcssclass=c("expout", "easy"))
 multipanelLabel(panel.labels[4])
+#
+par(mai=rep(0.01, 4)); plot.new()
 plot.perfbars2(noteasy.data, value.cols=c("precision", "precision_bestN"),
                labels=c("best of 1", "best of 5"),
                ylim=c(0, 1), axis.y=-0.075,
@@ -258,6 +266,8 @@ plot.perfbars2(noteasy.data, value.cols=c("pathlen", "pathlen_bestN"),
                labels=c("best of 1", "best of 5"),
                ylim=c(0, 5), axis.y=-0.075,
                main="Path length", Rcssclass=c("plain", "right"))
+#
+par(mai=rep(0.01, 4)); plot.new()
 best.hist <- plot.hist(noteasy.data$pathlen_bestN,
                       xlab="Path length, best of 5", ylab="N. queries",
 		              xlim=c(-0.2, 10),
@@ -267,91 +277,112 @@ multipanelLabel(panel.labels[6])
 ```
 
 
-
-```{r fig.calibration, eval=TRUE, echo=FALSE, fig.width=6.4, fig.height=4.2, fig.cap="\\textbf{Diffusion processes for human-to-mouse phenotype translation.} \\textbf{(A)} Top features imputed by a diffusion process starting from a query with text ‘incisors’. Diffusion transfers weight from k-mers present in the query to other k-mers associated with teeth. K-mers within the query retain large weights, but are omited from the figure to emphasize the ranking of the newly-imputed features. \\textbf{(B)} Calibration of the strength of diffusion for HP-MP translation. Queries from the HP ontology were diffused with different strengths, and then mapped to MP terms using the search algorithm. Precision was measured against mappings produced by owlsim. The shaded area of the graph is reproduced with a zoomed scale on top. \\textbf{(C)} Analogous to (B), but measuring the effect of diffusion in terms of path length. \\textbf{(D)} Top features imputed for an entire HP query composed of a phenotype title (‘Absent patellar reflexes’), description, synonyms, and other text data. Bars show the weights assigned by a diffusion process driven by the MP ontology, and by a process also including manual annotations. \\textbf{(E)} Calibration of strengths of diffusion in terms of precision, using diffusion driven by the MP ontology and manual annotations. \\textbf{(F)} Analogous to (E), but measuring the impact of diffusion in terms of path length."}
-layout(matrix(c(1,2,4,
-                1,3,5,
-                6,7,8), ncol=3, nrow=3, byrow=T),
-		widths=c(1.6, 2.4, 2.4), heights=c(0.6, 1.5, 2.1))
+```{r fig.calibration, eval=TRUE, echo=FALSE, fig.width=6.4, fig.height=6.0, fig.cap="\\textbf{Diffusion processes for human-to-mouse phenotype translation.} \\textbf{(A)} Top features imputed by a diffusion process starting from a query with text ‘activity’. Diffusion transfers weight from k-mers present in the query to other k-mers associated with enzymes. (k-mers within the query retain large weights, but are omitted from the figure to emphasize the ranking of the newly-imputed features.) \\textbf{(B)} Calibration of the strength of diffusion for HP-MP translation. Queries from the HP ontology were diffused with different strengths, and then mapped to MP terms using the search algorithm. Precision was measured against mappings produced by owlsim. The shaded area of the graph is reproduced with a zoomed scale on top. \\textbf{(C)} Analogous to (B), but measuring the effect of diffusion in terms of path length. \\textbf{(D)} Top features imputed for the query 'activity' as in (A), but comparing weights obtained with plain diffusion and diffusion driven by manual annotations. The effect of manual annotations is to change the weights for the imputed features, including the introduction features associated with locomotor movement. \\textbf{(E,F)} Examples of diffusion on terms that are present only in a small number of manual annotations. Some features can appear with negative values when manual annotations specify negative weights. \\textbf{(G)} Example of diffusion of an HP term titled 'paroxysmal drowsiness', consisting of many words. \\textbf{(H)} Calibration of strengths of diffusion in terms of precision, using diffusion driven by the MP ontology and manual annotations. \\textbf{(I)} Analogous to (H), but measuring the impact of diffusion in terms of path length."}
+layout(matrix(c(1,2,2,4,4,
+                1,3,3,5,5,
+                6,6,6,6,6,
+                7,8,9,9,10,
+                rep(11, 5),
+                12,13,13,14,14), ncol=5, nrow=6, byrow=T),
+       widths=c(1.6, 1.6, 0.8, 0.8, 1.6),
+       heights=c(0.55, 1.35, 0.2, 1.9, 0.1, 1.9))
 #
 # a single diffusion profile
 diffused.best.configs <- c(hpmp.viz[viz=="diffused"]$config.label[1],
                            hpmp.viz[viz=="best"]$config.label[1])
 plot.diffusion.barplot(
   hpmp.diffusion.examples[config.label %in% diffused.best.configs[1] &
-                            input=="incisors"],
+                            input=="activity"],
   n=18, xlim=c(0, 0.08))
 multipanelLabel(panel.labels[1])
 #
 # Calibration without any manual (precision)
 calibration.targets <- hpmp.evaluations.summary[diff_manual==0 & eval.label=="owlsim"]
 calibration.precision.zoom <- c(0.5, 0.542)
-plot.calibration.lines(calibration.targets, x="diff_targets",                       
+plot.calibration.lines(calibration.targets, x="diff_targets",
                        y=c(precision_bestN="best of 5"),
-		       show.values=c("first", "max"),
-		       ylim=calibration.precision.zoom,
-		       bg.stripe=calibration.precision.zoom,
-		       show.axes="y", ylab="",
-		       Rcssclass=c("zoom", "precision"))
+                       show.values=c("first", "max"),
+                       ylim=calibration.precision.zoom,
+                       bg.stripe=calibration.precision.zoom,
+                       show.axes="y", ylab="",
+                       Rcssclass=c("zoom", "precision"))
 multipanelLabel(panel.labels[2])
-plot.calibration.lines(calibration.targets, x="diff_targets",                       
+plot.calibration.lines(calibration.targets, x="diff_targets",
                        y=c(precision="best of 1", precision_bestN="best of 5"),
-		       show.values=c("first", "max")		   ,
-		       ylim=c(0, 0.58),
-       		       bg.stripe=calibration.precision.zoom+c(-0.03, 0.03),
-		       ylab="Precision", xlab="Diffusion strength (MP)",
-		       Rcssclass="precision")
+                       show.values=c("first", "max")		   ,
+                       ylim=c(0, 0.58),
+                       bg.stripe=calibration.precision.zoom+c(-0.03, 0.03),
+                       ylab="Precision", xlab="Diffusion strength (MP)",
+                       Rcssclass="precision")
 #
 # Calibration without any manual (pathlen)
-calibration.pathlen.zoom <- c(1.34, 1.52)
+calibration.pathlen.zoom <- c(1.34, 1.48)
 plot.calibration.lines(calibration.targets,x="diff_targets",
                        y=c(pathlen_bestN="best of 5"),
-       		           show.values=c("first", "min"),
-       		           ylim=calibration.pathlen.zoom,
-       		           bg.stripe=calibration.pathlen.zoom,
-		               show.axes="y", ylab="",
+                       show.values=c("first", "min"),
+                       ylim=calibration.pathlen.zoom,
+                       bg.stripe=calibration.pathlen.zoom,
+                       show.axes="y", ylab="",
                        Rcssclass=c("zoom", "pathlen"))
 multipanelLabel(panel.labels[3])
 plot.calibration.lines(calibration.targets,x="diff_targets",
                        y=c(pathlen="best of 1", pathlen_bestN="best of 5"),
-       		           show.values=c("first", "min"),
-       		           bg.stripe=calibration.pathlen.zoom+c(-0.1, 0.1),
-       		           ylim=c(0, 2.85),
-		               ylab="mean path length", xlab="Diffusion strength (MP)",
+                       show.values=c("first", "min"),
+                       bg.stripe=calibration.pathlen.zoom+c(-0.1, 0.1),
+                       ylim=c(0, 2.85),
+                       ylab="mean path length", xlab="Diffusion strength (MP)",
                        Rcssclass="pathlen")
 #
-# comparison of two diffusion profiles
-example.hp <- get.diffusion.comparison(hpmp.diffusion.examples, diffused.best.configs,
-                                      pair.label=c("auto", "manual"))
-example.hp <- example.hp[input=="HP:0006844"]
-plot.diffusion.barplot(example.hp,
-                       value.cols=c("value_auto", "value_manual"),
-                       n=18, xlim=c(0, 0.35), 
-                       legend.pos=c(0.14, -13.5),
-		               legend.main="Data diffusion",
-		               legend.labels=c("MP", "MP, manual"))
+par(mai=rep(0.01, 4)); plot.new()
+#
+# examples with diffusion profiles
+examples.data <- get.diffusion.comparison(hpmp.diffusion.examples,
+                                          diffused.best.configs,
+                                          pair.label=c("auto", "manual"))
+plot.diffusion.comparison <- function(x, xlim, legend.x=NA) {
+  plot.diffusion.barplot(x,
+                         value.cols=c("value_auto", "value_manual"),
+                         n=18, xlim=xlim,
+                         legend.pos=c(legend.x, -10),
+                         legend.main="Data diffusion",
+                         legend.labels=c("MP", "MP, manual"))
+}
+plot.diffusion.comparison(examples.data[input=="activity"],
+                          xlim=c(-0.1, 0.2))
 multipanelLabel(panel.labels[4])
+plot.diffusion.comparison(examples.data[input=="sleepy"],
+                          xlim=c(-0.1, 0.3), legend.x=-0.1)
+multipanelLabel(panel.labels[5])
+plot.diffusion.comparison(examples.data[input=="disabling"],
+                          xlim=c(-0.5, 0.1))
+multipanelLabel(panel.labels[6])
+plot.diffusion.comparison(examples.data[input=="HP:0002330"],
+                          xlim=c(-0.1, 0.3))
+multipanelLabel(panel.labels[7])
+#
+# fillters
+par(mai=rep(0.01, 4)); plot.new()
+par(mai=rep(0.01, 4)); plot.new()
 #
 # heatmaps with calibration values
 plot.calibration.heat(hpmp.evaluations.summary[eval.label=="owlsim"],
                       xy=c("diff_targets", "diff_manual"),
                       z=c(precision_bestN="top 5"),
-		              color.fun=plasma,
-		              show.values="max",
-		              xlab="Diffusion strength (MP)",
-		              ylab="Diffusion strength (manual)",
-		              main="Precision (best of 5)",
-		              Rcssclass="precision")
-multipanelLabel(panel.labels[5])
+                      color.fun=plasma,
+                      show.values="max",
+                      xlab="Diffusion strength (MP)",
+                      ylab="Diffusion strength (manual)",
+                      main="Precision (best of 5)",
+                      Rcssclass="precision")
+multipanelLabel(panel.labels[8])
 plot.calibration.heat(hpmp.evaluations.summary[eval.label=="owlsim"],
-                      xy=c("diff_targets", "diff_manual"),                      
+                      xy=c("diff_targets", "diff_manual"),
                       z=c(pathlen_bestN="top 5"),
-		              color.fun=viridis,
-		              show.values="min",
-		              xlab="Diffusion strength (MP)",
-		              ylab="Diffusion strength (manual)",
+                      color.fun=viridis,
+                      show.values="min",
+                      xlab="Diffusion strength (MP)",
+                      ylab="Diffusion strength (manual)",
                       main="Path length (best of 5)",
-		              Rcssclass="pathlen")
-multipanelLabel(panel.labels[6])
+                      Rcssclass="pathlen")
+multipanelLabel(panel.labels[9])
 ```
-

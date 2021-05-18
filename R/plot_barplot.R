@@ -200,9 +200,14 @@ plot.diffusion.barplot <- function(d, n=5, value.cols=c("value"),
            Rcssclass="overflow")
     }
   }
-  
+  # perhaps draw a vertical axis
+  # (only if expect both positive and negative values)
+  if (xlim[1]<0) {
+    lines(c(0, 0), c(-nrow(mm), bw2), Rcssclass="axis")
+  }
+
   # legend made up of boxes
-  if (!identical(legend.pos, NA)) {
+  if (!any(is.na(legend.pos))) {
     cols <- c(RcssValue("rect", "col", default="#000000", value.cols[1]),
               RcssValue("rect", "col", default="#000000", value.cols[2]))
     legend(legend.pos[1], legend.pos[2], legend.labels,

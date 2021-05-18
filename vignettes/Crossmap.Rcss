@@ -378,7 +378,7 @@ axis.boxtrends.grid.y {
 /** barplots for diffusion explanations **/
 
 par.diffusion {
-  mai: 0.1 0.35 0.35 0.1;
+  mai: 0.1 0.35 0.35 0.2;
   mgp: 0 0 0;
 }
 par.diffusion.genes {
@@ -441,6 +441,10 @@ text.diffusion.overflow {
   cex: 0.75;
   adj: -0.1 0.5;
   col: #ffffff;
+}
+lines.diffusion.axis {
+  lwd: 1;
+  col: #000000;
 }
 
 
@@ -941,11 +945,11 @@ points.noisy {
 
 /** calibration lines plots **/
 par.caliblines {
-  mai: 0.35 0.45 0.04 0.45;
+  mai: 0.35 0.45 0.04 0.5;
   mgp: 0 0 0;
 }
 par.caliblines.zoom {
-  mai: 0.04 0.45 0.15 0.45;
+  mai: 0.04 0.45 0.15 0.5;
   mgp: 0 0 0;
 }
 plot.caliblines {
@@ -959,10 +963,10 @@ rect.caliblines.stripe {
   border: #e0e0e0;
 }
 axis.caliblines {
-  tck: -0.015;
+  tck: -0.02;
 }
 axis.caliblines.x {
-  line: -0.15;
+  line: -0.2;
 }
 axis.caliblines.y {
   line: 0.2;
@@ -1025,7 +1029,7 @@ calibheat {
   legend.textpad: 0.015;
 }
 par.calibheat {
-  mai: 0.35 0.45 0.3 0.45;
+  mai: 0.35 0.45 0.3 0.5;
   mgp: 0 0 0;
 }
 plot.calibheat {
