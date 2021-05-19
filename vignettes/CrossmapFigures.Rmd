@@ -267,7 +267,7 @@ top.arrow(plain.hist$counts, i=1:3)
 multipanelLabel(panel.labels[4], x=-2.5)
 #
 # two panels with examples of manual training
-schematic.manual.learning("sleepy langour", "", widths=c(0.4, 0.6),
+schematic.manual.learning("sleepy languor", "", widths=c(0.4, 0.6),
                           main="Manual training items", Rcssclass="left")
 multipanelLabel(panel.labels[5])
 schematic.manual.learning("disabling", "heightened", widths=c(0.4, 0.6),

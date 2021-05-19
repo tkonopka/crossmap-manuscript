@@ -386,3 +386,12 @@ plot.calibration.heat(hpmp.evaluations.summary[eval.label=="owlsim"],
                       Rcssclass="pathlen")
 multipanelLabel(panel.labels[9])
 ```
+
+
+```{r fig.gui, eval=TRUE, echo=FALSE, fig.align="center", fig.width=4.2, fig.cap="\\textbf{Chat-based graphical user interface.} The interface is composed of a chat log (top) and a controller (bottom). In an initial query, a search with a gene symbol FOXO3 against a dataset of diseases reports no hits, indicating no genetic diseases are linked with the gene. A subsequent query activates diffusion using protein-protein interactions (settings are not shown in the screenshot, but are viewable in the software). Diffusion enables matching with diseases in the dataset. The final query de-emphasizes results related to cancer, and leads to a different set of results."}
+knitr::include_graphics("figures/Fig-screenshot.png", dpi=900)
+```
+
+
+\textbf{Table S1.} \textbf{Complete set of HP-MP translations and evaluation metrics.} Columns ‘id’ and ‘name’ refer to queries from the HP ontology. Columns ‘expected’ and ‘expected_name’ denote MP terms produced by an ontology-aware translation algorithm, owlsim. Columns ‘target’ and ‘target_name’ refer to translations produced by the search algorithm. Column ‘target_N’ lists the top 5 search results. Column ‘method’ indicates the level of data diffusion: ‘plain’ for search without diffusion, ‘diffused’ for diffusion using co-occurrence within the HP ontology, and ‘best’ for the best diffusion configuration using both MP and a manual dataset. Columns ‘precision’ and ‘pathlen’ quantify the presence of a match and the extent of disagreement between expected and target results. Columns ‘precision_bestN’ and ‘pathlen_bestN’ are analogous fields, but using the best results out of the top 5 search results.
+

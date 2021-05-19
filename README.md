@@ -7,6 +7,8 @@ This repository describes analyses of large datasets that are not included
 on github. A snapshot of data files - both raw and processed - is available 
 on zenodo ([dataset 4287332](https://zenodo.org/record/4287332)).
 
+(Repository on github may differ from the zenodo snapshot by a few commits.)
+
 The repository can be used in two distinct ways. It is possible to use the 
 code to start with raw data files and perform a complete analysis, including 
 data-intensive calculations, and produce summary visualizations. Alternatively,
