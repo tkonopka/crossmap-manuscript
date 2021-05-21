@@ -13,9 +13,11 @@ then
 fi
 
 
-# cartoon
+# manually assembled figures
 inkscape docs/cartoon.svg -e $OUTFIGURES/Fig-cartoon.png -d 600 --without-gui
 inkscape docs/screenshot.svg -e $OUTFIGURES/Fig-screenshot.png -d 300 --without-gui
+convert -flatten $OUTFIGURES/Fig-cartoon.png $OUTFIGURES/Fig-cartoon.tiff
+convert -flatten $OUTFIGURES/Fig-screenshot.png $OUTFIGURES/Fig-screenshot.tiff
 
 
 # primary figures 
